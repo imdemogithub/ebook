@@ -76,13 +76,14 @@ WSGI_APPLICATION = 'eBookProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'ebook.db',
-        # 'NAME': 'mydb',
-        # 'USER': 'root',
-        # 'PASSWORD': '',
-        # 'HOST': 'localhost',
-        # 'PORT': 3306,
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'ebook.db',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ebook',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': 3308,
     }
 }
 
