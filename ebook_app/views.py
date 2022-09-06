@@ -34,6 +34,39 @@ def index(request):
     return redirect(login_page)
     # return render(request, 'index.html', default_data)
 
+# book page
+def book_view_page(request, pk):
+    default_data['current_page'] = 'book_view_page'
+    book = Book.objects.get(pk=pk)
+    all_chapters = Chapter.objects.filter(Book=book)
+
+    print(all_chapters)
+
+    default_data['book_data'] = {
+        'book_title': book.Title,
+        'book_author': book.Author,
+        'chapters': [],
+    }
+
+    base_dir = Path(__file__).resolve().parent.parent
+    # chapter_path = Path.joinpath(settings.MEDIA_ROOT, f"book_chapters/")
+
+    for chapter in all_chapters:
+        # print(chapter.Content)
+        chapter_path = Path.joinpath(settings.MEDIA_ROOT, f"{chapter.Content}")
+        f = open(chapter_path)
+        
+        default_data['book_data']['chapters'].append({
+            "id": chapter.id,
+			"chapternumber": chapter.ChapterNumber,
+			"chaptertitle": chapter.ChapterName,
+			"chaptertext": f.read(),
+		})
+
+    print(default_data['book_data'])
+
+    return render(request, 'book/book_view_page.html', default_data)
+
 # login page
 def login_page(request):
     default_data['current_page'] = 'login_page'
@@ -281,6 +314,25 @@ def change_password(request):
         print('incorrect current password.')
 
     return redirect(profile_page)
+
+# add new book
+def add_book(request):
+    master = Master.objects.get(Email = request.session['email'])
+    profile = Profile.objects.get(Master = master)
+
+    book_category = Category.objects.get(pk=int(request.POST['category']))
+
+    Book.objects.create(
+        Author = profile,
+        Category = book_category,
+        Title = '',
+        ISBN = '',
+        Content = '',
+    )
+
+    return redirect(profile_page)
+
+
 
 # logout
 def logout(request):

@@ -5,6 +5,6 @@ from .models import *
 admin.site.site_title = 'eBook House'
 admin.site.site_header = 'eBook House'
 
-my_models = (UserRole, Master, Profile, Category, Book)
+my_models = (UserRole, Master, Profile, Category, Book, Chapter)
 for model in my_models:
     admin.site.register(model)

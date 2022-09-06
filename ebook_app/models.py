@@ -41,6 +41,9 @@ class Profile(models.Model):
 
     class Meta:
         db_table = 'profile'
+
+    def __str__(self) -> str:
+        return self.FullName if len(self.FullName) else 'No Name'
     
 class Category(models.Model):
     Name = models.CharField(max_length=20)
@@ -48,6 +51,9 @@ class Category(models.Model):
     class Meta:
         db_table = 'category'
         verbose_name_plural = 'categories'
+    
+    def __str__(self) -> str:
+        return self.Name
 
 class Book(models.Model):
     Author = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -60,3 +66,19 @@ class Book(models.Model):
 
     class Meta:
         db_table = 'book'
+
+    def __str__(self) -> str:
+        return self.Title
+
+class Chapter(models.Model):
+    Book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    ChapterName = models.CharField(max_length=100)
+    ChapterNumber = models.IntegerField()
+    Content = models.FileField(upload_to="book_chapters/")
+    UpdatedDate = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'chapter'
+
+    def __str__(self) -> str:
+        return f"Chapter {self.ChapterNumber}"

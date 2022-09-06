@@ -1,0 +1,6 @@
+Email Integration
+Profile Image Upload
+Ajax-CRUD
+Payment
+Github
+Deployment
