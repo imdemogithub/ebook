@@ -5,3 +5,5 @@
 - ## Project Features
 
 Visit [eBook Viewer](http://myebook.pythonanywhere.com)
+
+Visit <a href="http://myebook.pythonanywhere.com" target="_blank">eBook Viewer</a>
